@@ -66,10 +66,10 @@ let paraLengths = new Array(allText.length);
 
 //preloads images
 function preload() {
-  lastDay = loadImage('./images/happy-days.png');
-  lastDayOutline = loadImage('./images/happy-days-outline.png');
-  lastDayHalo = loadImage('./images/happy-days-halo.png');
-  lastDayPop = loadImage('./images/happy-days-pop.png');
+  lastDay = loadImage('images/happy-days.png');
+  lastDayOutline = loadImage('images/happy-days-outline.png');
+  lastDayHalo = loadImage('images/happy-days-halo.png');
+  lastDayPop = loadImage('images/happy-days-pop.png');
 }
 
 function setup() {
