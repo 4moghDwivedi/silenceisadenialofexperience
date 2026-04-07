@@ -77,6 +77,12 @@ function setup() {
   createCanvas(sketchWidth, sketchHeight);
   frameRate(random(8, 10));
 
+  document.addEventListener('keydown', function(e) {
+    if (e.code === 'Space' || e.key === ' ') {
+      e.preventDefault(); // Prevent browser default print dialog
+    }
+  }, true);
+
   for (let i = 0; i < 4; i++){
     radius[i] = random(12,50);
   }
@@ -257,31 +263,29 @@ function updateMax(){
 function keyPressed(){
   if (key=== ' '){
     if(pageNumber < 0){
-      pageNumber ++;
-    }
-        loadText(pageNumber, wordCount);
-        if(wordCount < paraLengths[pageNumber] - 5){
-          wordCount += floor(random(1, 5));
-          // wordCount += 1;
-        }
-        else{
-          wordCount++;
-        }
-
-        updateMax();
-        displayCounts();
-      
-    // this is the page turn!
-    if(wordCount > paraLengths[pageNumber]){
-      wordCount = 0;
-      currentText = '';
       pageNumber++;
-
-      updateMax();
-      displayCounts();
+      currentText = '';
+      wordCount = 0;
+    } else if (pageNumber < allText.length) {
+      if(wordCount < paraLengths[pageNumber] - 5){
+        wordCount += floor(random(1, 5));
+        // wordCount += 1;
+      } else {
+        wordCount++;
+      }
+      
+      loadText(pageNumber, wordCount);
+      
+      // this is the page turn!
+      if(wordCount > paraLengths[pageNumber]){
+        wordCount = 0;
+        currentText = '';
+        pageNumber++;
+      }
     }
-}
-  
+    return false; // Prevent browser default (print dialog)
+  }
+    
     if (key=== ','){
         if (pageNumber > -4) pageNumber--;
         //wordCount = 0;
@@ -317,7 +321,6 @@ function keyPressed(){
     }
   }
 
-// works with autoplay()
 function advanceText(){
     currentText += allText[paraCount][wordCount];
     wordCount += 1;
